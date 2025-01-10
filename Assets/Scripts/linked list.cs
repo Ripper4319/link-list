@@ -1,50 +1,63 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyState
+public class EnemyLinkedListManager : MonoBehaviour
 {
-    public string Name;
-    public Action OnEnter;
-    public Action OnUpdate;
-    public Action OnExit;
-    public EnemyState NextState;
+    private LinkedList<EnemyAttributes> enemyAttributesList = new LinkedList<EnemyAttributes>();
+    public EnemyBehavior enemyBehavior;
 
-    public EnemyState(string name, Action onEnter, Action onUpdate, Action onExit)
+    private void Start()
     {
-        Name = name;
-        OnEnter = onEnter;
-        OnUpdate = onUpdate;
-        OnExit = onExit;
-        NextState = null;
-    }
-}
-
-public class EnemyFSM : MonoBehaviour
-{
-    private EnemyState currentState;
-
-    public void SetInitialState(EnemyState state)
-    {
-        currentState = state;
-        currentState?.OnEnter?.Invoke();
+        AddEnemyAttributes();
+        PrintEnemyList();
+        ApplyFirstAttributes();
     }
 
-    public void UpdateFSM()
+    private void AddEnemyAttributes()
     {
-        if (currentState == null) return;
+        enemyAttributesList.AddLast(new EnemyAttributes(Color.red, 3.5f, 100));
+        enemyAttributesList.AddLast(new EnemyAttributes(Color.green, 2.0f, 150));
+        enemyAttributesList.AddLast(new EnemyAttributes(Color.blue, 1.5f, 200));
+    }
 
-        currentState.OnUpdate?.Invoke();
-
-        if (currentState.NextState != null)
+    private void PrintEnemyList()
+    {
+        Debug.Log("Enemy List Attributes:");
+        foreach (var attributes in enemyAttributesList)
         {
-            TransitionTo(currentState.NextState);
+            Debug.Log($"Color: {attributes.Color}, Speed: {attributes.WalkSpeed}, Health: {attributes.Health}");
         }
     }
 
-    public void TransitionTo(EnemyState newState)
+    private void ApplyFirstAttributes()
     {
-        currentState?.OnExit?.Invoke();
-        currentState = newState;
-        currentState?.OnEnter?.Invoke();
+        if (enemyAttributesList.Count == 0)
+        {
+            Debug.LogWarning("No attributes in the list to apply!");
+            return;
+        }
+
+        if (enemyBehavior == null)
+        {
+            Debug.LogWarning("EnemyBehavior script not assigned!");
+            return;
+        }
+
+        var firstNode = enemyAttributesList.First.Value;
+        enemyBehavior.SetAttributes(firstNode.Color, firstNode.WalkSpeed, firstNode.Health);
+    }
+}
+
+public class EnemyAttributes
+{
+    public Color Color { get; }
+    public float WalkSpeed { get; }
+    public float Health { get; }
+
+    public EnemyAttributes(Color color, float walkSpeed, float health)
+    {
+        Color = color;
+        WalkSpeed = walkSpeed;
+        Health = health;
     }
 }

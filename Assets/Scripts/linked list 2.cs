@@ -1,42 +1,58 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour
 {
-    private EnemyFSM fsm;
+    private Color color;
+    private float speed;
+    private float health;
 
-    void Start()
+    private NavMeshAgent navMeshAgent;
+    private Transform player;
+    private Renderer enemyRenderer;
+
+    private void Start()
     {
-        EnemyState idleState = new EnemyState(
-            "Idle",
-            () => Debug.Log("Enemy Entered Idle State"),
-            () => Debug.Log("Enemy is Idling..."),
-            () => Debug.Log("Enemy Exited Idle State")
-        );
+        enemyRenderer = GetComponent<Renderer>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
 
-        EnemyState attackState = new EnemyState(
-            "Attack",
-            () => Debug.Log("Enemy Entered Attack State"),
-            () => Debug.Log("Enemy is Attacking!"),
-            () => Debug.Log("Enemy Exited Attack State")
-        );
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
 
-        EnemyState patrolState = new EnemyState(
-            "Patrol",
-            () => Debug.Log("Enemy Entered Patrol State"),
-            () => Debug.Log("Enemy is Patrolling..."),
-            () => Debug.Log("Enemy Exited Patrol State")
-        );
-
-        idleState.NextState = attackState;
-        attackState.NextState = patrolState;
-        patrolState.NextState = idleState;
-
-        fsm = gameObject.AddComponent<EnemyFSM>();
-        fsm.SetInitialState(idleState);
+        if (enemyRenderer != null)
+        {
+            enemyRenderer.material.color = color;
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        fsm.UpdateFSM();
+        if (player != null)
+        {
+            navMeshAgent.SetDestination(player.position);
+        }
+    }
+
+    public void SetAttributes(Color newColor, float newSpeed, float newHealth)
+    {
+        color = newColor;
+        speed = newSpeed;
+        health = newHealth;
+
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.speed = speed;
+        }
+
+        if (enemyRenderer != null)
+        {
+            enemyRenderer.material.color = color;
+        }
+
+        Debug.Log($"Enemy Attributes Updated: Color = {color}, Speed = {speed}, Health = {health}");
     }
 }
+
