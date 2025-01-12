@@ -1,10 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class ColorSetter : MonoBehaviour
 {
     public GameObject targetObject;
     private LinkedList colorList;
-    private int currectIndex = 0;
+    private int currentIndex;
+    public  bool r;
 
     private void Start()
     {
@@ -12,15 +14,42 @@ public class ColorSetter : MonoBehaviour
         colorList.Add(Color.red);
         colorList.Add(Color.green);
         colorList.Add(Color.blue);
+
         SetColor(0);
     }
 
-    public void Update()
+
+    public void CycleColors()
     {
-        Input.GetKeyUp(KeyCode.W);
+        if (r)
+        {
+
+            if (colorList.Count() == 0) return;
+
+            currentIndex++;
+
+            if (currentIndex >= colorList.Count())
+            {
+                currentIndex = 0;
+            }
+
+            SetColor(currentIndex);
+
+            r = false;
+
+            StartCoroutine(Updatecockblocker());
+        }
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
             CycleColors();
-
+            Debug.Log("error, it worked");
+            
+            
 
         }
     }
@@ -47,12 +76,12 @@ public class ColorSetter : MonoBehaviour
         }
     }
 
-    public void CycleColors()
+    IEnumerator Updatecockblocker()
     {
-        int count = colorList.Count();
-        for (int i = 0; i < count; i++)
-        {
-            SetColor(i);
-        }
+        yield return new WaitForSeconds(1);
+        r = true;
     }
+    
 }
+    
+
