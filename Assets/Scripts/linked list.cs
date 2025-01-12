@@ -1,63 +1,58 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class LinkedList
 {
-    private LinkedList<EnemyAttributes> enemyAttributesList = new LinkedList<EnemyAttributes>();
-    public EnemyBehavior enemyBehavior;
+    private Node head;
 
-    private void Start()
+    public void Add(Color color)
     {
-        AddEnemyAttributes();
-        PrintEnemyList();
-        ApplyFirstAttributes();
-    }
+        Node newNode = new Node(color);
 
-    private void AddEnemyAttributes()
-    {
-        enemyAttributesList.AddLast(new EnemyAttributes(Color.red, 3.5f, 100));
-        enemyAttributesList.AddLast(new EnemyAttributes(Color.green, 2.0f, 150));
-        enemyAttributesList.AddLast(new EnemyAttributes(Color.blue, 1.5f, 200));
-    }
-
-    private void PrintEnemyList()
-    {
-        Debug.Log("Enemy List Attributes:");
-        foreach (var attributes in enemyAttributesList)
+        if (head == null)
         {
-            Debug.Log($"Color: {attributes.Color}, Speed: {attributes.WalkSpeed}, Health: {attributes.Health}");
+            head = newNode;
+        }
+        else
+        {
+            Node current = head;
+            while (current.next != null)
+            {
+                current = current.next;
+            }
+            current.next = newNode;
         }
     }
 
-    private void ApplyFirstAttributes()
+    public Color GetColorAtIndex(int index)
     {
-        if (enemyAttributesList.Count == 0)
+        Node current = head;
+        int count = 0;
+
+        while (current != null)
         {
-            Debug.LogWarning("No attributes in the list to apply!");
-            return;
+            if (count == index)
+            {
+                return current.rgbValue;
+            }
+            count++;
+            current = current.next;
         }
 
-        if (enemyBehavior == null)
-        {
-            Debug.LogWarning("EnemyBehavior script not assigned!");
-            return;
-        }
-
-        var firstNode = enemyAttributesList.First.Value;
-        enemyBehavior.SetAttributes(firstNode.Color, firstNode.WalkSpeed, firstNode.Health);
+        Debug.LogWarning("buttocks no color");
+        return Color.white;
     }
-}
 
-public class EnemyAttributes
-{
-    public Color Color { get; }
-    public float WalkSpeed { get; }
-    public float Health { get; }
-
-    public EnemyAttributes(Color color, float walkSpeed, float health)
+    public int Count()
     {
-        Color = color;
-        WalkSpeed = walkSpeed;
-        Health = health;
+        int count = 0;
+        Node current = head;
+
+        while (current != null)
+        {
+            count++;
+            current = current.next;
+        }
+
+        return count;
     }
 }
