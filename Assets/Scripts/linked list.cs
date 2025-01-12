@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLinkedListManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     private LinkedList<EnemyAttributes> enemyAttributesList = new LinkedList<EnemyAttributes>();
     public EnemyBehavior enemyBehavior;
