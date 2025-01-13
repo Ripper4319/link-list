@@ -23,6 +23,32 @@ public class LinkedList
         }
     }
 
+    public void Delete(Color color)
+    {
+        if (head == null)
+        {
+            Debug.LogWarning("Buttocks empty");
+            return;
+        }
+
+        Node current = head;
+
+        while (current.next != null)
+        {
+            if (current.next.rgbValue == color)
+            {
+                current.next = current.next.next;
+                Debug.Log($"Node with color {color} deleted");
+                return;
+            }
+
+            current = current.next;
+        }
+
+        Debug.LogWarning($"Buttocks with color {color} not found");
+    }
+
+
     public Color GetColorAtIndex(int index)
     {
         Node current = head;

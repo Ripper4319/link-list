@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 1790996875}
+  r: 1
 --- !u!4 &1216265434
 Transform:
   m_ObjectHideFlags: 0
