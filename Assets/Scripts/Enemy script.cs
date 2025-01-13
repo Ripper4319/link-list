@@ -6,7 +6,7 @@ public class ColorSetter : MonoBehaviour
     public GameObject targetObject;
     private LinkedList colorList;
     private int currentIndex;
-    public  bool r;
+    public  bool r = true;
 
     private void Start()
     {
@@ -24,6 +24,8 @@ public class ColorSetter : MonoBehaviour
         if (r)
         {
 
+            r = false;
+
             if (colorList.Count() == 0) return;
 
             currentIndex++;
@@ -35,22 +37,19 @@ public class ColorSetter : MonoBehaviour
 
             SetColor(currentIndex);
 
-            r = false;
-
             StartCoroutine(Updatecockblocker());
         }
 
     }
 
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            CycleColors();
             Debug.Log("error, it worked");
-            
-            
 
+            CycleColors();
         }
     }
 
@@ -78,7 +77,7 @@ public class ColorSetter : MonoBehaviour
 
     IEnumerator Updatecockblocker()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         r = true;
     }
     
