@@ -3,6 +3,8 @@ using UnityEngine;
 public class LinkedList
 {
     private Node head;
+    private Node tail;
+    private bool isEnded = false;
 
     public void Add(Color color)
     {
@@ -11,53 +13,30 @@ public class LinkedList
         if (head == null)
         {
             head = newNode;
+            tail = newNode;
         }
         else
         {
-            Node current = head;
-            while (current.next != null)
-            {
-                current = current.next;
-            }
+            Node current = tail;
             current.next = newNode;
+            tail = newNode;
         }
     }
 
-    public void Delete(Color color)
-    {
-        if (head == null)
-        {
-            Debug.LogWarning("Buttocks empty");
-            return;
-        }
-
-        Node current = head;
-
-        while (current.next != null)
-        {
-            if (current.next.rgbValue == color)
-            {
-                current.next = current.next.next;
-                Debug.Log($"Node with color {color} deleted");
-                return;
-            }
-
-            current = current.next;
-        }
-
-        Debug.LogWarning($"Buttocks with color {color} not found");
-    }
-
-
-    public Color GetColorAtIndex(int index)
+    public Color GetColorAtIndex(int index, out bool isAtEnd)
     {
         Node current = head;
         int count = 0;
+        isAtEnd = false;
 
         while (current != null)
         {
             if (count == index)
             {
+                if (current == tail && isEnded)
+                {
+                    isAtEnd = true;
+                }
                 return current.rgbValue;
             }
             count++;
@@ -81,4 +60,15 @@ public class LinkedList
 
         return count;
     }
+
+    public void SetEnd(bool end)
+    {
+        isEnded = end;
+    }
+
+    public bool IsEnded()
+    {
+        return isEnded;
+    }
 }
+
