@@ -3,8 +3,6 @@ using UnityEngine;
 public class LinkedList
 {
     private Node head;
-    private Node tail;
-    private bool isEnded = false;
 
     public void Add(Color color)
     {
@@ -13,38 +11,45 @@ public class LinkedList
         if (head == null)
         {
             head = newNode;
-            tail = newNode;
         }
         else
         {
-            Node current = tail;
+            Node current = head;
+            while (current.next != null)
+            {
+                current = current.next;
+            }
             current.next = newNode;
-            tail = newNode;
         }
     }
 
-    public Color GetColorAtIndex(int index, out bool isAtEnd)
+    public Node GetNodeAtIndex(int index)
     {
         Node current = head;
         int count = 0;
-        isAtEnd = false;
 
         while (current != null)
         {
             if (count == index)
             {
-                if (current == tail && isEnded)
-                {
-                    isAtEnd = true;
-                }
-                return current.rgbValue;
+                return current;
             }
             count++;
             current = current.next;
         }
+        return null;
+    }
 
-        Debug.LogWarning("buttocks no color");
-        return Color.white;
+    public Color GetColorAtIndex(int index)
+    {
+        Node node = GetNodeAtIndex(index);
+
+        if (node == null)
+        {
+            return Color.white;
+        }
+
+        return node.rgbValue;
     }
 
     public int Count()
@@ -59,16 +64,6 @@ public class LinkedList
         }
 
         return count;
-    }
-
-    public void SetEnd(bool end)
-    {
-        isEnded = end;
-    }
-
-    public bool IsEnded()
-    {
-        return isEnded;
     }
 }
 

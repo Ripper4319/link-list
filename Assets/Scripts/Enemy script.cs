@@ -6,7 +6,7 @@ public class ColorSetter : MonoBehaviour
     public GameObject targetObject;
     private LinkedList colorList;
     private int currentIndex;
-    public bool r = true;
+    private bool r = true;
 
     private void Start()
     {
@@ -26,26 +26,18 @@ public class ColorSetter : MonoBehaviour
 
             if (colorList.Count() == 0) return;
 
-            currentIndex++;
-            bool isAtEnd = false;
-
-            Color colorToSet = colorList.GetColorAtIndex(currentIndex, out isAtEnd);
-
-            if (isAtEnd)
+            // Check if we have reached the last index
+            if (currentIndex < colorList.Count() - 1)
             {
-                Debug.Log("End of linked list reached!");
-                currentIndex--;
-                StartCoroutine(Updatecockblocker());
-                return;
+                currentIndex++;
+                SetColor(currentIndex);
+            }
+            else
+            {
+                Debug.LogWarning("Buttocks, no more.");
             }
 
-            if (currentIndex >= colorList.Count() && !colorList.IsEnded())
-            {
-                currentIndex = 0;
-            }
-
-            SetColor(currentIndex);
-            StartCoroutine(Updatecockblocker());
+            StartCoroutine(UpdateCycleDelay());
         }
     }
 
@@ -53,15 +45,8 @@ public class ColorSetter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Cycling colors...");
+            Debug.Log("Cycling Buttocks...");
             CycleColors();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            bool currentEndState = colorList.IsEnded();
-            colorList.SetEnd(!currentEndState);
-            Debug.Log("List end toggled to: " + (!currentEndState));
         }
     }
 
@@ -69,7 +54,7 @@ public class ColorSetter : MonoBehaviour
     {
         if (targetObject != null)
         {
-            Color colorToSet = colorList.GetColorAtIndex(index, out _);
+            Color colorToSet = colorList.GetColorAtIndex(index);
             Renderer renderer = targetObject.GetComponent<Renderer>();
 
             if (renderer != null)
@@ -78,20 +63,19 @@ public class ColorSetter : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Buttocks");
+                Debug.LogWarning("Buttocks.");
             }
         }
         else
         {
-            Debug.LogWarning("Buttocks2");
+            Debug.LogWarning("Buttocks");
         }
     }
 
-    IEnumerator Updatecockblocker()
+    private IEnumerator UpdateCycleDelay()
     {
         yield return new WaitForSeconds(0.1f);
         r = true;
     }
 }
-
 
