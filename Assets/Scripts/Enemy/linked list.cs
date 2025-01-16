@@ -1,4 +1,4 @@
-husing UnityEngine;
+using UnityEngine;
 
 public class LinkedList
 {
