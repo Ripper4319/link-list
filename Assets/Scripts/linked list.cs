@@ -1,4 +1,4 @@
-using UnityEngine;
+husing UnityEngine;
 
 public class LinkedList
 {
@@ -22,6 +22,36 @@ public class LinkedList
             current.next = newNode;
         }
     }
+
+    public void Delete(Color color)
+    {
+        if (head == null)
+        {
+            Debug.LogWarning("Buttocks empty");
+            return;
+        }
+
+        if (head.rgbValue == color)
+        {
+            head = head.next;
+            Debug.Log($"Buttocks with color {color} deleted");
+            return;
+        }
+
+        Node current = head;
+        while (current.next != null)
+        {
+            if (current.next.rgbValue == color)
+            {
+                current.next = current.next.next;
+                Debug.Log($"Buttocks with color {color} deleted");
+                return;
+            }
+            current = current.next;
+        }
+        Debug.LogWarning($"Buttocks with color {color} not found");
+    }
+
 
     public Node GetNodeAtIndex(int index)
     {
