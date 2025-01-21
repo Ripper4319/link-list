@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
+   
+    [Header("Camera")]
     Vector2 camRotation;
-
     public float mouseSensitivity = 2.0f;
     public float camRotationLimit = 90f;
 
-    private Rigidbody myRB;
+    [Header("Player")]
+    public Rigidbody myRB;
     public Camera playerCamera;
-    public GameObject bullet;
-    private Vector3 velocity;
     public Vector3 respawnPos;
     public Quaternion zero;
     public int health = 3;
     public float speed = 5;
     public float jumpHeight = 6.5f;
+
+    [Header("Gun")]
+    public GameObject bullet;
+    private Vector3 velocity;
     public float bulletSpeed = 5;
     public float bulletLifespan = .5f;
+
+    [Header("Grapple Gun")]
+    public GameObject Grapple;
 
     void Start()
     {
@@ -29,7 +36,7 @@ public class playerController : MonoBehaviour
 
         if (playerCamera != null)
         {
-            playerCamera.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+            playerCamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
             playerCamera.transform.parent = transform;
         }
     }
