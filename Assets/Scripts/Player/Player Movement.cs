@@ -27,6 +27,7 @@ public class playerController : MonoBehaviour
 
     [Header("Grapple Gun")]
     public GameObject Grapple;
+    public GrapplingGun grap;
 
     void Start()
     {
@@ -49,10 +50,27 @@ public class playerController : MonoBehaviour
             health = 3;
         }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            grap.StartGrapple();
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            grap.StopGrapple();
+        }
+
         velocity = myRB.linearVelocity;
 
-        velocity.x = Input.GetAxisRaw("Horizontal") * speed;
-        velocity.z = Input.GetAxisRaw("Vertical") * speed;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        Vector3 moveDirection = (right * horizontalInput + forward * verticalInput).normalized;
+
+        velocity.x = moveDirection.x * speed;
+        velocity.z = moveDirection.z * speed;
 
         camRotation.x += Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.timeScale;
         camRotation.y += Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.timeScale;
@@ -79,6 +97,8 @@ public class playerController : MonoBehaviour
             b.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
             Destroy(b, bulletLifespan);
         }
+
+       
 
         myRB.linearVelocity = velocity;
     }
