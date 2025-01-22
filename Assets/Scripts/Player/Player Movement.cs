@@ -18,6 +18,9 @@ public class playerController : MonoBehaviour
     public int health = 3;
     public float speed = 5;
     public float jumpHeight = 6.5f;
+    public Transform cam1;
+    private LayerMask mask;
+    private float maxRaycastDistance = 100;
 
     [Header("Gun")]
     public GameObject bullet;
@@ -96,6 +99,8 @@ public class playerController : MonoBehaviour
 
             b.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
             Destroy(b, bulletLifespan);
+
+
         }
 
        
@@ -110,7 +115,7 @@ public class playerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("enemy"))
+        if (collision.gameObject.name.Contains("Enemy"))
         {
             health--;
         }
