@@ -1,11 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ColorSetter : MonoBehaviour
 {
     public GameObject targetObject;
     private LinkedList colorList;
     private int currentIndex;
+    public float detectionRange = 5;
+    public playerController player;
+    public NavMeshAgent agent;
+    public Transform player1;
+    public float Health = 3;
     private bool r = true;
 
     private void Start()
@@ -16,6 +22,9 @@ public class ColorSetter : MonoBehaviour
         colorList.Add(Color.blue);
 
         SetColor(0);
+
+        player = GameObject.FindWithTag("Player").GetComponent<playerController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public void CycleColors()
@@ -48,6 +57,16 @@ public class ColorSetter : MonoBehaviour
             Debug.Log("Cycling Buttocks...");
             CycleColors();
         }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player1.position);
+        if (distanceToPlayer <= detectionRange)
+        {
+            agent.destination = player.transform.position;
+
+            if (Health <= 0)
+                Destroy(gameObject);
+        }
+
     }
 
     public void SetColor(int index)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GrapplingGun : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class GrapplingGun : MonoBehaviour
     public Transform gunTip, camera, player;
     private float maxDistance = 100f;
     private SpringJoint joint;
+    public Sprite GRAP;
+    public Sprite NONE;
+    public bool colco = false;
 
     void Awake()
     {
@@ -43,15 +47,30 @@ public class GrapplingGun : MonoBehaviour
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
 
-
+            if (!colco)
+            {
+                GameObject myImage = GameObject.Find("CROSSHAIR");
+                Image imageComponent = myImage.GetComponent<Image>();
+                imageComponent.sprite = GRAP;
+                colco = true;
+            }
         }
         
     }
+
 
     public void StopGrapple()
     {
         lr.positionCount = 0;
         Destroy(joint);
+        
+        if (colco)
+        {
+            GameObject myImage = GameObject.Find("CROSSHAIR");
+            Image imageComponent = myImage.GetComponent<Image>();
+            imageComponent.sprite = NONE;
+            colco = false;
+        }
     }
 
     private Vector3 currentGrapplePosition;
