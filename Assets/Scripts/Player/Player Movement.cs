@@ -15,7 +15,7 @@ public class playerController : MonoBehaviour
     public Camera playerCamera;
     public Vector3 respawnPos;
     public Quaternion zero;
-    public int health = 3;
+    public int health = 30;
     public float speed = 5;
     public float jumpHeight = 6.5f;
     public Transform cam1;

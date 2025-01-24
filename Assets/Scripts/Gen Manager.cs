@@ -6,6 +6,7 @@ public class ManagerGen : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject crosshairs;
     public bool Pausee = true;
+    public playerController player;
 
     void Start()
     {
