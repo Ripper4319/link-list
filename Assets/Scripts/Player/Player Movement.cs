@@ -15,12 +15,11 @@ public class playerController : MonoBehaviour
     public Camera playerCamera;
     public Vector3 respawnPos;
     public Quaternion zero;
-    public int health = 30;
+    public int health = 20;
     public float speed = 5;
     public float jumpHeight = 6.5f;
     public Transform cam1;
     private LayerMask mask;
-    private float maxRaycastDistance = 100;
 
     [Header("Gun")]
     public GameObject bullet;
@@ -50,7 +49,7 @@ public class playerController : MonoBehaviour
         if (health <= 0)
         {
             transform.SetPositionAndRotation(respawnPos, zero);
-            health = 3;
+            health = 20;
         }
 
         if (Input.GetMouseButtonDown(1))
