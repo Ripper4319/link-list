@@ -10,7 +10,7 @@ public class ManagerGen : MonoBehaviour
     public bool Pausee = true;
     public playerController player;
     public Image healthBar;
-    public bool isinhealtharea = true;
+    public bool isinhealtharea = false;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class ManagerGen : MonoBehaviour
         PauseMenu.SetActive(false);
         Pausee = false;
 
-        if (player != null)
+        if (player != null && !isinhealtharea)
         {
             StartCoroutine(DecreasePlayerHealth());
         }

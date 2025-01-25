@@ -1718,7 +1718,7 @@ MonoBehaviour:
   respawnPos: {x: 0, y: 0, z: 0}
   zero: {x: 0, y: 0, z: 0, w: 0}
   health: 3
-  speed: 10
+  speed: 0.6
   jumpHeight: 9.47
   cam1: {fileID: 1351329474}
   bullet: {fileID: 904001662}

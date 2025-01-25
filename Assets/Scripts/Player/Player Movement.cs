@@ -52,13 +52,16 @@ public class playerController : MonoBehaviour
             health = 20;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (grap != null)
         {
-            grap.StartGrapple();
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            grap.StopGrapple();
+            if (Input.GetMouseButtonDown(1))
+            {
+                grap.StartGrapple();
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                grap.StopGrapple();
+            }
         }
 
         velocity = myRB.linearVelocity;
@@ -101,8 +104,6 @@ public class playerController : MonoBehaviour
 
 
         }
-
-       
 
         myRB.linearVelocity = velocity;
     }

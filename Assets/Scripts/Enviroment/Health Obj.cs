@@ -26,24 +26,23 @@ public class HealthObj : MonoBehaviour
             {
                 StopCoroutine(healCoroutine);
                 healCoroutine = null;
-
                 GenMan.isinhealtharea = false;
             }
+
+            healCoroutine = null;
         }
     }
 
     private IEnumerator HealPlayer()
     {
-        while (true)
-        {
-            GenMan.isinhealtharea = true;
+        GenMan.isinhealtharea = true;
 
-            if (player.health < 20)
-            {
-                player.health++;
-            }
-            yield return new WaitForSeconds(healtimer);
+        if (player.health < 20)
+        {
+            player.health++;
         }
+
+        yield return new WaitForSeconds(healtimer);
     }
 
     private void OnDrawGizmos()
