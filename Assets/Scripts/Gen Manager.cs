@@ -8,9 +8,10 @@ public class ManagerGen : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject crosshairs;
     public bool Pausee = true;
-    public playerController player;
+    public playerMovement player;
     public Image healthBar;
     public bool isinhealtharea = false;
+    public bool coroutinecockblocker = true;
 
     void Start()
     {
@@ -48,23 +49,23 @@ public class ManagerGen : MonoBehaviour
         }
 
         UpdateHealthBar();
+
+        if (!isinhealtharea && coroutinecockblocker)
+        {
+            StartCoroutine(DecreasePlayerHealth());
+            coroutinecockblocker = false;
+        }
     }
 
     private IEnumerator DecreasePlayerHealth()
     {
-        while (true)
+        if (player != null)
         {
-
-            if (!isinhealtharea)
-            {
-                if (player != null)
-                {
-                    player.health--;
-                }
-                yield return new WaitForSeconds(1f);
-            }
-
+            player.health--;
         }
+        yield return new WaitForSeconds(1f);
+
+        coroutinecockblocker = true;
     }
 
     private void UpdateHealthBar()

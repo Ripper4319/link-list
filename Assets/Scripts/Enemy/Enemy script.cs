@@ -8,7 +8,7 @@ public class ColorSetter : MonoBehaviour
     private LinkedList colorList;
     private int currentIndex;
     public float detectionRange = 5;
-    public playerController player;
+    public playerMovement player;
     public NavMeshAgent agent;
     public Transform player1;
     public float Health = 3;
@@ -23,7 +23,7 @@ public class ColorSetter : MonoBehaviour
 
         SetColor(0);
 
-        player = GameObject.FindWithTag("Player").GetComponent<playerController>();
+        player = GameObject.FindWithTag("Player").GetComponent<playerMovement>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -35,7 +35,6 @@ public class ColorSetter : MonoBehaviour
 
             if (colorList.Count() == 0) return;
 
-            // Check if we have reached the last index
             if (currentIndex < colorList.Count() - 1)
             {
                 currentIndex++;

@@ -13,10 +13,19 @@ public class GrapplingGun : MonoBehaviour
     public Sprite GRAP;
     public Sprite NONE;
     public bool colco = false;
+    public float pullSpeed = 10f;
+    public Rigidbody playerRigidbody;
+    public Material grappleMaterial;
+    public bool isin5flimit = false;
+    public float grapplelimitclose = 5f;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        if (grappleMaterial != null)
+        {
+            lr.material = grappleMaterial; 
+        }
     }
 
 
@@ -25,7 +34,7 @@ public class GrapplingGun : MonoBehaviour
         DrawRope();
     }
 
-    public void StartGrapple()
+     public void StartGrapple()
     {
         RaycastHit hit;
         if (Physics.Raycast(playercamera.position, playercamera.forward, out hit, maxDistance, whatIsGrappleable))
@@ -44,6 +53,13 @@ public class GrapplingGun : MonoBehaviour
             joint.damper = 7f;
             joint.massScale = 4.5f;
 
+            if (lr.material != grappleMaterial)
+            {
+                lr.material = grappleMaterial;
+            }
+
+            lr.enabled = true;
+
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
 
@@ -55,7 +71,6 @@ public class GrapplingGun : MonoBehaviour
                 colco = true;
             }
         }
-        
     }
 
 
@@ -88,6 +103,21 @@ public class GrapplingGun : MonoBehaviour
     public bool IsGrappling()
     {
         return joint != null;
+    }
+
+    public void PullPlayer()
+    {
+        Vector3 directionToGrapplePoint = (grapplePoint - player.position).normalized;
+        float distanceToGrapplePoint = Vector3.Distance(player.position, grapplePoint);
+
+        if (distanceToGrapplePoint > grapplelimitclose)
+        {
+            playerRigidbody.AddForce(directionToGrapplePoint * pullSpeed, ForceMode.Acceleration);
+        }
+        else
+        {
+            isin5flimit = true;
+        }
     }
 
     public Vector3 GetGrapplePoint()

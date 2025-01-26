@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthObj : MonoBehaviour
 {
     public float detectionRadius = 5f;
-    public playerController player;
+    public playerMovement player;
     public float healtimer = 0.3f;
     public ManagerGen GenMan;
 
@@ -19,6 +19,8 @@ public class HealthObj : MonoBehaviour
             {
                 healCoroutine = StartCoroutine(HealPlayer());
             }
+
+            GenMan.isinhealtharea = true;
         }
         else
         {
@@ -28,22 +30,27 @@ public class HealthObj : MonoBehaviour
                 healCoroutine = null;
                 GenMan.isinhealtharea = false;
             }
-
-            healCoroutine = null;
         }
     }
+
 
     private IEnumerator HealPlayer()
     {
-        GenMan.isinhealtharea = true;
 
-        if (player.health < 20)
+        while (player != null && Vector3.Distance(transform.position, player.transform.position) <= detectionRadius)
         {
-            player.health++;
+            if (player.health < 20)
+            {
+                player.health++;
+            }
+
+            yield return new WaitForSeconds(healtimer);
         }
 
-        yield return new WaitForSeconds(healtimer);
+        GenMan.isinhealtharea = false;
+        healCoroutine = null; 
     }
+
 
     private void OnDrawGizmos()
     {

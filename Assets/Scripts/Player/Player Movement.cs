@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerMovement : MonoBehaviour
 {
    
     [Header("Camera")]
@@ -20,12 +20,11 @@ public class playerController : MonoBehaviour
     public float jumpHeight = 6.5f;
     public Transform cam1;
     private LayerMask mask;
+    private Vector3 velocity;
+    public bool isgrap = false;
 
     [Header("Gun")]
-    public GameObject bullet;
-    private Vector3 velocity;
-    public float bulletSpeed = 5;
-    public float bulletLifespan = .5f;
+    public LaserGun gun;
 
     [Header("Grapple Gun")]
     public GameObject Grapple;
@@ -56,13 +55,37 @@ public class playerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1))
             {
-                grap.StartGrapple();
-            }
-            else if (Input.GetMouseButtonUp(1))
-            {
-                grap.StopGrapple();
+                if (!isgrap && !grap.isin5flimit) 
+                {
+                   grap.StartGrapple();
+                   isgrap = true;
+                }
+                else
+                {
+                    grap.StopGrapple();
+                    isgrap = false;
+                }
             }
         }
+
+        Stopgrap();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!isgrap)
+            {
+                gun.ShootLaser();
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (isgrap && grap != null)
+            {
+                grap.PullPlayer();
+            }
+        }
+        
 
         velocity = myRB.linearVelocity;
 
@@ -89,22 +112,6 @@ public class playerController : MonoBehaviour
             velocity.y = jumpHeight;
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject b = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
-
-            Physics.IgnoreCollision(b.GetComponent<Collider>(), GetComponent<Collider>());
-
-            Vector3 lookPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lookPos.y = transform.position.y;
-            Vector3 direction = (lookPos - transform.position).normalized;
-
-            b.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
-            Destroy(b, bulletLifespan);
-
-
-        }
-
         myRB.linearVelocity = velocity;
     }
 
@@ -119,6 +126,18 @@ public class playerController : MonoBehaviour
         {
             health--;
         }
+    }
+
+
+    public void Stopgrap()
+    {
+        if (grap.isin5flimit)
+        {
+            grap.StopGrapple();
+            isgrap = false;
+            grap.isin5flimit = false;
+        }
+       
     }
 }
 
