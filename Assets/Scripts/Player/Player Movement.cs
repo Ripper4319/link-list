@@ -39,7 +39,7 @@ public class playerMovement : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody>();
         myRB.freezeRotation = true;
-        respawnPos = new Vector3(0, -2, 0);
+        respawnPos = new Vector3(0, 1, 38);
         zero = Quaternion.identity;
 
         if (playerCamera != null)
