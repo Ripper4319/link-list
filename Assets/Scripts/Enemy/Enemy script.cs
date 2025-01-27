@@ -13,6 +13,8 @@ public class ColorSetter : MonoBehaviour
     public Transform player1;
     public float Health = 3;
     private bool r = true;
+    public GameObject Particalesystem;
+    public bool Died = false;
 
     private void Start()
     {
@@ -25,6 +27,8 @@ public class ColorSetter : MonoBehaviour
 
         player = GameObject.FindWithTag("Player").GetComponent<playerMovement>();
         agent = GetComponent<NavMeshAgent>();
+
+        Died = false;
     }
 
     public void CycleColors()
@@ -66,6 +70,12 @@ public class ColorSetter : MonoBehaviour
                 Destroy(gameObject);
         }
 
+        if (Health <= 0 && !Died)
+        {
+            StartCoroutine(Death());
+
+        }
+
     }
 
     public void SetColor(int index)
@@ -90,10 +100,37 @@ public class ColorSetter : MonoBehaviour
         }
     }
 
+   
     private IEnumerator UpdateCycleDelay()
     {
         yield return new WaitForSeconds(0.1f);
         r = true;
     }
+
+    public IEnumerator DestroyTime()
+    {
+        if (!Died)
+        {
+            Health--;
+
+            GameObject particales = Instantiate(Particalesystem, transform.position, transform.rotation);
+
+            yield return new WaitForSeconds(2);
+            Destroy(particales);
+        }
+        
+    }
+
+    private IEnumerator Death()
+    {
+        GameObject particales = Instantiate(Particalesystem, transform.position, transform.rotation);
+
+        yield return new WaitForSeconds(4);
+        Destroy(particales);
+
+        Died = true;
+    }
+
+
 }
 

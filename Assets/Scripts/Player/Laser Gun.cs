@@ -19,21 +19,27 @@ public class LaserGun : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-      
-    }
-
     public void ShootLaser()
     { 
         StartCoroutine(LaserEffect());
 
         RaycastHit hit;
+        
         if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, laserRange, targetLayers))
         {
             Debug.Log("Laser hit: " + hit.collider.name);
 
+            ColorSetter target = hit.collider.GetComponent<ColorSetter>();
+            if (target !=null)
+            {
+
+
+                StartCoroutine(target.DestroyTime());
+            }
+
         }
+
+       
     }
 
     public IEnumerator LaserEffect()
