@@ -69,7 +69,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             StopCoroutine(autoSaveCoroutine);
         }
-        autoSaveCoroutine = StartCoroutine(AutoSave());
+        //autoSaveCoroutine = StartCoroutine(AutoSave());
     }
 
     public void ChangeSelectedProfileId(string newProfileId)
