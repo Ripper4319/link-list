@@ -3578,14 +3578,14 @@ RectTransform:
   m_LocalScale: {x: 9.695802, y: 9.695802, z: 9.695802}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 718986550}
   - {fileID: 604848782}
   - {fileID: 1513710292}
-  - {fileID: 718986550}
   m_Father: {fileID: 1427936258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -133, y: 62}
+  m_AnchoredPosition: {x: -22, y: 60}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700416112
@@ -8204,7 +8204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableDataPersistence: 0
-  initializeDataIfNull: 1
+  initializeDataIfNull: 0
   overrideSelectedProfileId: 0
   testSelectedProfileId: test
   fileName: Data.game
@@ -9128,7 +9128,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1513710294}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1394055275}
+        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1513710294
 MonoBehaviour:
   m_ObjectHideFlags: 0
