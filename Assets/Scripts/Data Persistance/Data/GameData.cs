@@ -6,34 +6,32 @@ using UnityEngine;
 public class GameData
 {
     public long lastUpdated;
-    public int deathCount;
+    public int playerHealth;
     public Vector3 playerPosition;
-    public SerializableDictionary<string, bool> coinsCollected;
-    public AttributesData playerAttributesData;
+    public SerializableDictionary<string, bool> enemiesDefeated;
 
     public GameData()
     {
-        this.deathCount = 0;
-        playerPosition = Vector3.zero;
-        coinsCollected = new SerializableDictionary<string, bool>();
-        playerAttributesData = new AttributesData();
+        this.playerHealth = 20;
+        this.playerPosition = Vector3.zero;
+        this.enemiesDefeated = new SerializableDictionary<string, bool>();
     }
 
-    public int GetPercentageComplete()
+    public int GetPercentageEnemiesDefeated()
     {
-        int totalCollected = 0;
-        foreach (bool collected in coinsCollected.Values)
+        int totalDefeated = 0;
+        foreach (bool defeated in enemiesDefeated.Values)
         {
-            if (collected)
+            if (defeated)
             {
-                totalCollected++;
+                totalDefeated++;
             }
         }
 
         int percentageCompleted = -1;
-        if (coinsCollected.Count != 0)
+        if (enemiesDefeated.Count != 0)
         {
-            percentageCompleted = (totalCollected * 100 / coinsCollected.Count);
+            percentageCompleted = (totalDefeated * 100 / enemiesDefeated.Count);
         }
         return percentageCompleted;
     }
