@@ -8,13 +8,17 @@ public class GameData
     public long lastUpdated;
     public int playerHealth;
     public Vector3 playerPosition;
-    public SerializableDictionary<string, bool> enemiesDefeated;
+    //public SerializableDictionary<string, bool> enemiesDefeated;
+    public Dictionary<string, bool> enemiesDefeated = new Dictionary<string, bool>();
+    public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
 
     public GameData()
     {
         this.playerHealth = 20;
         this.playerPosition = Vector3.zero;
-        this.enemiesDefeated = new SerializableDictionary<string, bool>();
+        enemiesDefeated = new Dictionary<string, bool>();
+        enemyPositions = new Dictionary<string, Vector3>();
+
     }
 
     public int GetPercentageEnemiesDefeated()

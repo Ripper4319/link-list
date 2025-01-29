@@ -16,6 +16,14 @@ public class ColorSetter : MonoBehaviour
     public GameObject Particalesystem;
     public bool Died = false;
 
+    [SerializeField] private string id;
+
+    [ContextMenu("Generate guid for id")]
+    private void GenerateGuid()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
     private void Start()
     {
         colorList = new LinkedList();
@@ -77,6 +85,27 @@ public class ColorSetter : MonoBehaviour
         }
 
     }
+
+    public void LoadData(GameData data)
+    {
+        if (data.enemiesDefeated.TryGetValue(id, out Died) && Died)
+        {
+            Destroy(gameObject);  
+            return;
+        }
+
+        if (data.enemyPositions.TryGetValue(id, out Vector3 savedPosition))
+        {
+            transform.position = savedPosition; 
+        }
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.enemiesDefeated[id] = Died;
+        data.enemyPositions[id] = transform.position;
+    }
+
 
     public void SetColor(int index)
     {

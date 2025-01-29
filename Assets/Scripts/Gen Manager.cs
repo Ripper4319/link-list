@@ -36,7 +36,7 @@ public class ManagerGen : MonoBehaviour
             crosshairs.SetActive(false);
             Time.timeScale = 0;
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Pausee)
         {
@@ -45,7 +45,7 @@ public class ManagerGen : MonoBehaviour
             crosshairs.SetActive(true);
             Time.timeScale = 1;
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         UpdateHealthBar();
