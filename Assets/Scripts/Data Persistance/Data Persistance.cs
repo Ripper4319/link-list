@@ -19,7 +19,7 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("Auto Saving Configuration")]
     [SerializeField] private float autoSaveTimeSeconds = 60f;
 
-    private GameData gameData;
+    internal GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
@@ -52,6 +52,12 @@ public class DataPersistenceManager : MonoBehaviour
         InitializeSelectedProfileId();
 
         NewGame();
+    }
+
+    private void Start()
+    {
+        NewGame();
+        Debug.Log(gameData);
     }
 
     private void OnEnable()
@@ -144,6 +150,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.LoadData(gameData);
         }
+        Debug.Log(gameData);
     }
 
     public void SaveGame()
@@ -167,6 +174,8 @@ public class DataPersistenceManager : MonoBehaviour
         gameData.lastUpdated = System.DateTime.Now.ToBinary();
 
         dataHandler.Save(gameData, selectedProfileId);
+        Debug.Log(gameData);
+        Debug.Log(gameData.playerPosition);
     }
 
     private void OnApplicationQuit()
