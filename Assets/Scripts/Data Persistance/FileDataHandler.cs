@@ -23,6 +23,7 @@ public class FileDataHandler
     {
         if (profileId == null)
         {
+            Debug.LogError("Load(): Profile ID is null!");
             return null;
         }
 

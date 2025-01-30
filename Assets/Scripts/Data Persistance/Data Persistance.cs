@@ -31,6 +31,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+
         if (instance != null)
         {
             Debug.Log("Found more than one Data Persistence Manager in the scene. Destroying the newest one.");
@@ -48,6 +50,8 @@ public class DataPersistenceManager : MonoBehaviour
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
 
         InitializeSelectedProfileId();
+
+        NewGame();
     }
 
     private void OnEnable()
@@ -97,8 +101,15 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
+        Debug.Log("New Game Created!");  
         this.gameData = new GameData();
+
+        if (this.gameData == null)
+        {
+            Debug.LogError("New GameData object was not created properly!");  
+        }
     }
+
 
     public void LoadGame()
     {
@@ -108,6 +119,15 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         this.gameData = dataHandler.Load(selectedProfileId);
+
+        GameData loadedData = dataHandler.Load(selectedProfileId);
+
+
+        if (loadedData == null)
+        {
+            Debug.LogWarning("LoadGame(): No save data found! Keeping existing gameData.");
+            return;  // Don't overwrite gameData if there's no saved data.
+        }
 
         if (this.gameData == null && initializeDataIfNull)
         {
