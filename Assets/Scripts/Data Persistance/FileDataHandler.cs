@@ -177,7 +177,7 @@ public class FileDataHandler
         string mostRecentProfileId = null;
 
         Dictionary<string, GameData> profilesGameData = LoadAllProfiles();
-        foreach (KeyValuePair<string, GameData> pair in profilesGameData) //fix this
+        foreach (KeyValuePair<string, GameData> pair in profilesGameData)
         {
             string profileId = pair.Key;
             GameData gameData = pair.Value;

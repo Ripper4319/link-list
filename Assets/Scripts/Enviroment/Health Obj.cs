@@ -8,8 +8,9 @@ public class HealthObj : MonoBehaviour
     public playerMovement player;
     public float healtimer = 0.3f;
     public ManagerGen GenMan;
-
+    public bool istrigger = false;
     private Coroutine healCoroutine;
+    public MovingThing mT;
 
     void Update()
     {
@@ -39,8 +40,14 @@ public class HealthObj : MonoBehaviour
 
         while (player != null && Vector3.Distance(transform.position, player.transform.position) <= detectionRadius)
         {
+
+           
             if (player.health < 20)
             {
+                if (istrigger)
+                {
+
+                }
                 player.health++;
             }
 
