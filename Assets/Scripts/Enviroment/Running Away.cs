@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RunningAway : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class RunningAway : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            SceneManager.LoadScene(1);
         }
     }
 }

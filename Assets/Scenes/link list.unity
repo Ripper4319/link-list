@@ -5066,7 +5066,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 13b21f9f19c5ee2488f2fdf865c3e829, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &895471674
 MeshCollider:
@@ -5956,6 +5956,7 @@ GameObject:
   - component: {fileID: 1016018618}
   - component: {fileID: 1016018617}
   - component: {fileID: 1016018616}
+  - component: {fileID: 1016018619}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -6056,6 +6057,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016018614}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1016018619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016018614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a0bc5064de69642b9cdbc0e64f799d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1029990501
 GameObject:
   m_ObjectHideFlags: 0
@@ -11426,6 +11439,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1192440096002126873, guid: 6329bab144b11554883cdda6c68fcf13, type: 3}
+      propertyPath: mT
+      value: 
+      objectReference: {fileID: 692338799}
+    - target: {fileID: 1192440096002126873, guid: 6329bab144b11554883cdda6c68fcf13, type: 3}
+      propertyPath: GenMan
+      value: 
+      objectReference: {fileID: 2128738533}
+    - target: {fileID: 1192440096002126873, guid: 6329bab144b11554883cdda6c68fcf13, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 423777304}
+    - target: {fileID: 1192440096002126873, guid: 6329bab144b11554883cdda6c68fcf13, type: 3}
+      propertyPath: istrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2164618726079804983, guid: 6329bab144b11554883cdda6c68fcf13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.21809006

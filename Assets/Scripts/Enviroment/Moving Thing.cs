@@ -14,7 +14,7 @@ public class MovingThing : MonoBehaviour
         transform.localPosition = closedPosition;
     }
 
-    public IEnumerator OpenDoorAfterDelay(float delay)
+    public IEnumerator OpenDoorAfterDelay()
     {
         yield return new WaitForSeconds(2f);
 

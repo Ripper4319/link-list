@@ -132,7 +132,7 @@ public class DataPersistenceManager : MonoBehaviour
         if (loadedData == null)
         {
             Debug.LogWarning("LoadGame(): No save data found! Keeping existing gameData.");
-            return;  // Don't overwrite gameData if there's no saved data.
+            return;  
         }
 
         if (this.gameData == null && initializeDataIfNull)

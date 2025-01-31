@@ -46,7 +46,7 @@ public class HealthObj : MonoBehaviour
             {
                 if (istrigger)
                 {
-
+                    StartCoroutine(mT.OpenDoorAfterDelay());
                 }
                 player.health++;
             }
