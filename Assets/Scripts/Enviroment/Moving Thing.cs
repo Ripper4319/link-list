@@ -1,17 +1,22 @@
 using System.Collections;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MovingThing : MonoBehaviour
 {
-    public float doorOpenTime = 3f;
+    public float doorOpenTime = 7f;
     public Vector3 openPosition;
     public Vector3 closedPosition;
     public float doorSpeed = 2f;
+    public GameObject NavAffirmer;
+    public NavDisabler disabled;
+
 
     public void Start()
     {
+        Destroy(NavAffirmer);
 
-        transform.localPosition = closedPosition;
     }
 
     public IEnumerator OpenDoorAfterDelay()
@@ -20,12 +25,14 @@ public class MovingThing : MonoBehaviour
 
 
         StartCoroutine(MoveDoor(openPosition));
+        disabled.DisableAllAgents();
 
 
         yield return new WaitForSeconds(doorOpenTime);
 
 
         StartCoroutine(MoveDoor(closedPosition));
+        disabled.EnableAllAgents();
     }
 
     private IEnumerator MoveDoor(Vector3 targetPosition)
