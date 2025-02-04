@@ -40,14 +40,15 @@ public class HealthObj : MonoBehaviour
 
         while (player != null && Vector3.Distance(transform.position, player.transform.position) <= detectionRadius)
         {
+            if (istrigger)
+            {
+                StartCoroutine(mT.OpenDoorAfterDelay());
 
-           
+                istrigger = false;
+            }
+
             if (player.health < 20)
             {
-                if (istrigger)
-                {
-                    StartCoroutine(mT.OpenDoorAfterDelay());
-                }
                 player.health++;
             }
 

@@ -55,6 +55,9 @@ public class playerMovement : MonoBehaviour, IDataPersistence
         {
             transform.SetPositionAndRotation(respawnPos, zero);
             health = 20;
+            grap.StopGrapple();
+            isgrap = false;
+
         }
 
         HandleGrappling();

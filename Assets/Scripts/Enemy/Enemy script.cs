@@ -15,6 +15,7 @@ public class ColorSetter : MonoBehaviour
     private bool r = true;
     public GameObject Particalesystem;
     public bool Died = false;
+    public NavDisabler navdis;
 
     [SerializeField] private string id;
 
@@ -69,17 +70,24 @@ public class ColorSetter : MonoBehaviour
             CycleColors();
         }
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player1.position);
-        if (distanceToPlayer <= detectionRange)
+        if (navdis.on)
         {
-            agent.destination = player.transform.position;
+            {
+                float distanceToPlayer = Vector3.Distance(transform.position, player1.position);
+                if (distanceToPlayer <= detectionRange)
+                {
+                    agent.destination = player.transform.position;
 
-            if (Health <= 0)
-                Destroy(gameObject);
+                }
+            }
         }
+       
 
         if (Health <= 0 && !Died)
         {
+
+            Died = true;
+
             StartCoroutine(Death());
 
         }
@@ -155,9 +163,9 @@ public class ColorSetter : MonoBehaviour
         GameObject particales = Instantiate(Particalesystem, transform.position, transform.rotation);
 
         yield return new WaitForSeconds(4);
+
         Destroy(particales);
 
-        Died = true;
     }
 
 
