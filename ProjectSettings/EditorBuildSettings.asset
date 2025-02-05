@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/link list 2 last blood part 3.unity
     guid: 2513fab7552c0344eb4ab5374f57f07b
+  - enabled: 1
+    path: Assets/Scenes/LinkedListEnd.unity
+    guid: 8de138c24791d42408c47d6abb91e144
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

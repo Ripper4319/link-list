@@ -78,6 +78,7 @@ public class ColorSetter : MonoBehaviour
                 {
                     agent.destination = player.transform.position;
 
+
                 }
             }
         }
@@ -162,10 +163,12 @@ public class ColorSetter : MonoBehaviour
     {
         GameObject particales = Instantiate(Particalesystem, transform.position, transform.rotation);
 
+        if (Health <= 0)
+            Destroy(gameObject);
+
         yield return new WaitForSeconds(4);
 
         Destroy(particales);
-
     }
 
 

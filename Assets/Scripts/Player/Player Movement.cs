@@ -25,6 +25,7 @@ public class playerMovement : MonoBehaviour, IDataPersistence
     public bool isgrap = false;
     private bool readyToJump = true;
     public float jumpCooldown = 0.25f;
+    public ManagerGen mangen;
 
     [Header("Gun")]
     public LaserGun gun;
@@ -60,10 +61,12 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
         }
 
-        HandleGrappling();
-        HandleShooting();
-        HandleCameraRotation();
-
+        if (!mangen.Pausee)
+        {
+            HandleGrappling();
+            HandleShooting();
+            HandleCameraRotation();
+        }
         grounded = IsGrounded();
         HandleDrag();
         ProcessMovement();
