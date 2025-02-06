@@ -80,6 +80,10 @@ public class ColorSetter : MonoBehaviour
 
 
                 }
+                else if (Health < 3)
+                {
+                    agent.destination = player.transform.position;
+                }
             }
         }
        
