@@ -38,6 +38,8 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
+        transform.SetPositionAndRotation(respawnPos, zero);
+
         myRB = GetComponent<Rigidbody>();
         myRB.freezeRotation = true;
         respawnPos = new Vector3(0, 1, 38);
