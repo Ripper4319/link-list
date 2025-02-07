@@ -49,7 +49,14 @@ public class GrapplingGun : MonoBehaviour
     private void HandleCrosshair()
     {
         RaycastHit hit;
-        bool canGrapple = Physics.Raycast(playercamera.position, playercamera.forward, out hit, maxDistance, whatIsGrappleable);
+        bool canGrapple = false;
+        if (Physics.Raycast(playercamera.position, playercamera.forward, out hit, maxDistance))
+        {
+            if (((1 << hit.collider.gameObject.layer) & whatIsGrappleable) != 0)
+            {
+                canGrapple = true;
+            }
+        }
 
         if (IsGrappling())
         {
@@ -65,11 +72,18 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
+
+
     public void StartGrapple()
     {
         RaycastHit hit;
-        if (Physics.Raycast(playercamera.position, playercamera.forward, out hit, maxDistance, whatIsGrappleable))
+        if (Physics.Raycast(playercamera.position, playercamera.forward, out hit, maxDistance))
         {
+            if (((1 << hit.collider.gameObject.layer) & whatIsGrappleable) == 0)
+            {
+                return;
+            }
+
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -93,6 +107,7 @@ public class GrapplingGun : MonoBehaviour
             colco = true;
         }
     }
+
 
     public void StopGrapple()
     {
