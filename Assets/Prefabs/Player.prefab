@@ -296,7 +296,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4275402963444748562}
-  m_Material: {fileID: 13400000, guid: 79c978c3ffd56b14cacbd14ffbf39492, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -498,7 +498,6 @@ MonoBehaviour:
   gunTip: {fileID: 8217567874062119903}
   playercamera: {fileID: 8309810925634670640}
   player: {fileID: 1539934731165984030}
-  maxDistance: 15
   GRAP: {fileID: 21300000, guid: 84e569074da97344dae96647cacc8119, type: 3}
   NONE: {fileID: 21300000, guid: 4b57b103ab910b3428f2e0c34f320b55, type: 3}
   CAN_GRAPPLE: {fileID: 21300000, guid: 3454b308d4a75a54ca2c605c64c5ed36, type: 3}

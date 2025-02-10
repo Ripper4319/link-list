@@ -66,3 +66,4 @@ public class HealthObj : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
+
