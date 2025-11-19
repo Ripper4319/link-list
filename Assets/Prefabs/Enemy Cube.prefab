@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 422703782920826803}
   - component: {fileID: 467463514028097634}
   - component: {fileID: 3736446923895603025}
-  - component: {fileID: 1964330076111581117}
+  - component: {fileID: 8129151060245413092}
   m_Layer: 3
   m_Name: Enemy Cube
   m_TagString: Enemy
@@ -277,7 +277,7 @@ MonoBehaviour:
   Died: 0
   navdis: {fileID: 0}
   id: 
---- !u!54 &1964330076111581117
+--- !u!54 &8129151060245413092
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,5 +302,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0

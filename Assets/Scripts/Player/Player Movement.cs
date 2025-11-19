@@ -50,6 +50,11 @@ public class playerMovement : MonoBehaviour, IDataPersistence
             playerCamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
             playerCamera.transform.parent = transform;
         }
+
+        isgrap = false;
+        if (grap != null)
+            grap.StopGrapple();
+
     }
 
     void Update()
@@ -120,16 +125,22 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
     private void ApplyMovement()
     {
-        Vector3 flatVel = new Vector3(myRB.linearVelocity.x, 0f, myRB.linearVelocity.z);
+        Vector3 move = new Vector3(velocity.x, 0f, velocity.z);
+        move = Vector3.ProjectOnPlane(move, GetGroundNormal());
 
+        if (grounded)
+            myRB.AddForce(move * 10f, ForceMode.Acceleration);
+        else
+            myRB.AddForce(move * 6f, ForceMode.Acceleration);
+
+        Vector3 flatVel = new Vector3(myRB.linearVelocity.x, 0, myRB.linearVelocity.z);
         if (flatVel.magnitude > speed)
         {
-            Vector3 limitedVel = flatVel.normalized * speed;
-            myRB.linearVelocity = new Vector3(limitedVel.x, myRB.linearVelocity.y, limitedVel.z);
+            Vector3 limited = flatVel.normalized * speed;
+            myRB.linearVelocity = new Vector3(limited.x, myRB.linearVelocity.y, limited.z);
         }
-
-        myRB.linearVelocity = new Vector3(velocity.x, myRB.linearVelocity.y, velocity.z);
     }
+
 
     private void HandleDrag()
     {
@@ -194,6 +205,15 @@ public class playerMovement : MonoBehaviour, IDataPersistence
             }
         }
     }
+
+    private Vector3 GetGroundNormal()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.5f))
+            return hit.normal;
+
+        return Vector3.up;
+    }
+
 
     private void HandleShooting()
     {

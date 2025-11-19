@@ -1,10 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ManagerGen : MonoBehaviour 
+public class ManagerGen : MonoBehaviour
 {
-
     public GameObject PauseMenu;
     public GameObject crosshairs;
     public bool Pausee = true;
@@ -21,16 +19,13 @@ public class ManagerGen : MonoBehaviour
         Pausee = false;
 
         if (player != null && !isinhealtharea)
-        {
             StartCoroutine(DecreasePlayerHealth());
-        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !Pausee)
         {
-
             Pausee = true;
             PauseMenu.SetActive(true);
             crosshairs.SetActive(false);
@@ -46,10 +41,10 @@ public class ManagerGen : MonoBehaviour
             Time.timeScale = 1;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-
         }
 
-        UpdateHealthBar();
+        if (player != null && healthBar != null)
+            healthBar.fillAmount = Mathf.Clamp01(player.health / 20f);
 
         if (!isinhealtharea && coroutinecockblocker)
         {
@@ -58,22 +53,12 @@ public class ManagerGen : MonoBehaviour
         }
     }
 
-    private IEnumerator DecreasePlayerHealth()
+    private System.Collections.IEnumerator DecreasePlayerHealth()
     {
         if (player != null)
-        {
             player.health--;
-        }
+
         yield return new WaitForSeconds(1f);
-
         coroutinecockblocker = true;
-    }
-
-    private void UpdateHealthBar()
-    {
-        if (player != null && healthBar != null)
-        {
-            healthBar.fillAmount = Mathf.Clamp01(player.health / 20f);
-        }
     }
 }
