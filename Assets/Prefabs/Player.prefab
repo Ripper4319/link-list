@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8502591801708512366}
   - component: {fileID: 7321099800728656908}
   - component: {fileID: 6114841010721383937}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8217567874062119903}
-  m_Father: {fileID: 1539934731165984030}
+  m_Father: {fileID: 692176294029900116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4691025117839720426
 Camera:
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 2079621726184154239}
   - component: {fileID: 93498942813896048}
   - component: {fileID: 8578938843396834862}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8309810925634670640}
+  - {fileID: 692176294029900116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3848772508136935370
@@ -339,6 +339,13 @@ MonoBehaviour:
   isgrap: 0
   jumpCooldown: 0.25
   mangen: {fileID: 0}
+  grappleMinSpeed: 10
+  speedLines: {fileID: 0}
+  speedLinesMin: 20
+  speedLinesMax: 40
+  cameraHolder: {fileID: 0}
+  speedLinesTransform: {fileID: 0}
+  minVelocityForRotation: 1
   gun: {fileID: 1775414005747707224}
   Grapple: {fileID: 8435324220839040317}
   grap: {fileID: 2879657305113923671}
@@ -369,6 +376,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!1 &8072070678757818140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692176294029900116}
+  m_Layer: 3
+  m_Name: Camera Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &692176294029900116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8072070678757818140}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8309810925634670640}
+  m_Father: {fileID: 1539934731165984030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8435324220839040317
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +423,7 @@ GameObject:
   - component: {fileID: 2879657305113923671}
   - component: {fileID: 1775414005747707224}
   - component: {fileID: 2771301524014704316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,6 +568,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   damage: 10
   laserMaterial: {fileID: 2100000, guid: fdd0c4adb2fe574479d8264fddf37958, type: 2}
+  cameraHolder: {fileID: 0}
 --- !u!120 &2771301524014704316
 LineRenderer:
   serializedVersion: 2

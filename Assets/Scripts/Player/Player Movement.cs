@@ -35,6 +35,8 @@ public class playerMovement : MonoBehaviour, IDataPersistence
     ParticleSystem.EmissionModule slEmission;
     ParticleSystem.VelocityOverLifetimeModule slVel;
 
+    public Transform cameraHolder;
+
     public Transform speedLinesTransform;
     public float minVelocityForRotation = 1f;
 
@@ -62,8 +64,8 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
         if (playerCamera != null)
         {
-            playerCamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
-            playerCamera.transform.parent = transform;
+            playerCamera.transform.SetParent(cameraHolder, false);
+            playerCamera.transform.localPosition = new Vector3(0, 0.5f, 0);
         }
 
         isgrap = false;

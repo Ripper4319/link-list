@@ -9,37 +9,36 @@ public class LaserGun : MonoBehaviour
     public float laserDuration = 0.1f;
     public LayerMask targetLayers;
     public int damage = 10;
-    public Material laserMaterial; 
+    public Material laserMaterial;
+    public Transform cameraHolder;
+    public ParticleSystem hitEffect;
 
     private void Start()
     {
         if (laserMaterial != null && laserBeam.material == null)
-        {
-            laserBeam.material = laserMaterial;  
-        }
+            laserBeam.material = laserMaterial;
     }
 
     public void ShootLaser()
-    { 
+    {
+        cameraHolder.GetComponent<CameraShake>().Shake(0.3f);
         StartCoroutine(LaserEffect());
 
         RaycastHit hit;
-        
+
         if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, laserRange, targetLayers))
         {
-            Debug.Log("Laser hit: " + hit.collider.name);
-
-            ColorSetter target = hit.collider.GetComponent<ColorSetter>();
-            if (target !=null)
+            if (hitEffect != null)
             {
-
-
-                StartCoroutine(target.DestroyTime());
+                ParticleSystem fx = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                fx.Play();
+                Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax);
             }
 
+            ColorSetter target = hit.collider.GetComponent<ColorSetter>();
+            if (target != null)
+                StartCoroutine(target.DestroyTime());
         }
-
-       
     }
 
     public IEnumerator LaserEffect()
@@ -47,9 +46,7 @@ public class LaserGun : MonoBehaviour
         laserBeam.positionCount = 2;
 
         if (laserBeam.material != laserMaterial)
-        {
-            laserBeam.material = laserMaterial; 
-        }
+            laserBeam.material = laserMaterial;
 
         laserBeam.SetPosition(0, firePoint.position);
         laserBeam.SetPosition(1, firePoint.position + firePoint.forward * laserRange);
