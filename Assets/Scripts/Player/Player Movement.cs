@@ -26,6 +26,17 @@ public class playerMovement : MonoBehaviour, IDataPersistence
     private bool readyToJump = true;
     public float jumpCooldown = 0.25f;
     public ManagerGen mangen;
+    private bool grappleCheckRunning = false;
+    public float grappleMinSpeed = 10f;
+    public ParticleSystem speedLines;
+    public float speedLinesMin = 20f;
+    public float speedLinesMax = 40f;
+
+    ParticleSystem.EmissionModule slEmission;
+    ParticleSystem.VelocityOverLifetimeModule slVel;
+
+    public Transform speedLinesTransform;
+    public float minVelocityForRotation = 1f;
 
     [Header("Gun")]
     public LaserGun gun;
@@ -38,6 +49,10 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
+        slEmission = speedLines.emission;
+        slVel = speedLines.velocityOverLifetime;
+        slEmission.rateOverTime = 0;
+
         transform.SetPositionAndRotation(respawnPos, zero);
 
         myRB = GetComponent<Rigidbody>();
@@ -59,6 +74,10 @@ public class playerMovement : MonoBehaviour, IDataPersistence
 
     void Update()
     {
+        UpdateSpeedLineDirection();
+
+        HandleSpeedLines();
+
         if (health <= 0)
         {
             transform.SetPositionAndRotation(respawnPos, zero);
@@ -186,6 +205,9 @@ public class playerMovement : MonoBehaviour, IDataPersistence
                 {
                     grap.StartGrapple();
                     isgrap = true;
+
+                    if (!grappleCheckRunning)
+                        StartCoroutine(GrappleSpeedCheck());
                 }
                 else
                 {
@@ -236,6 +258,22 @@ public class playerMovement : MonoBehaviour, IDataPersistence
         }
     }
 
+    private System.Collections.IEnumerator GrappleSpeedCheck()
+    {
+        grappleCheckRunning = true;
+        yield return new WaitForSeconds(0.7f);
+
+        float speed = myRB.linearVelocity.magnitude;
+
+        if (speed < grappleMinSpeed && isgrap)
+        {
+            grap.StopGrapple();
+            isgrap = false;
+        }
+
+        grappleCheckRunning = false;
+    }
+
     public void StopGrapple()
     {
         if (grap.isin5flimit)
@@ -245,4 +283,34 @@ public class playerMovement : MonoBehaviour, IDataPersistence
             grap.isin5flimit = false;
         }
     }
+
+    private void HandleSpeedLines()
+    {
+        float s = myRB.linearVelocity.magnitude;
+        float t = Mathf.InverseLerp(speedLinesMin, speedLinesMax, s);
+
+        var rate = slEmission.rateOverTime;
+        rate.constant = Mathf.Lerp(0f, 200f, t);
+        slEmission.rateOverTime = rate;
+    }
+
+    private void UpdateSpeedLineDirection()
+    {
+        Vector3 vel = myRB.linearVelocity;
+
+        if (vel.sqrMagnitude < minVelocityForRotation * minVelocityForRotation)
+            return;
+
+        Vector3 dir = vel.normalized;
+
+        Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, 180f, 0);
+        speedLinesTransform.rotation = Quaternion.Slerp(
+            speedLinesTransform.rotation,
+            targetRot,
+            Time.deltaTime * 10f
+        );
+    }
+
+
+
 }
