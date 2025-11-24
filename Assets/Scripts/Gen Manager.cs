@@ -3,13 +3,25 @@ using UnityEngine.UI;
 
 public class ManagerGen : MonoBehaviour
 {
+    [Header("Menus")]
     public GameObject PauseMenu;
     public GameObject crosshairs;
+
+    [Header("State")]
     public bool Pausee = true;
-    public playerMovement player;
-    public Image healthBar;
     public bool isinhealtharea = false;
     public bool coroutinecockblocker = true;
+
+    [Header("Player")]
+    public playerMovement player;
+    public Image healthBar;
+
+    [Header("Settings")]
+    public float mouseSensitivity = 2f;
+    public float masterVol = 1f;
+    public float sfxVol = 1f;
+    public float musicVol = 1f;
+
 
     void Start()
     {

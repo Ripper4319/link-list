@@ -3,23 +3,36 @@ using UnityEngine.UI;
 
 public class GrapplingGun : MonoBehaviour
 {
+    [Header("Line Rendering")]
     private LineRenderer lr;
     private Vector3 grapplePoint;
+
+    [Header("Grapple Settings")]
     public LayerMask whatIsGrappleable;
     public Transform gunTip, playercamera, player;
     public float maxDistance = 100f;
     private SpringJoint joint;
+
+    [Header("Grapple Icons")]
     public Sprite GRAP;
     public Sprite NONE;
     public Sprite CAN_GRAPPLE;
+    private Image crosshairImage;
+
+    [Header("State")]
     public bool colco = false;
-    public float pullSpeed = 10f;
-    public Rigidbody playerRigidbody;
-    public Material grappleMaterial;
     public bool isin5flimit = false;
     public float grapplelimitclose = 5f;
 
-    private Image crosshairImage;
+    [Header("Movement")]
+    public float pullSpeed = 10f;
+    public Rigidbody playerRigidbody;
+    public bool grappleCheckRunning = false;
+    public float grappleMinSpeed = 10f;
+
+    [Header("Materials")]
+    public Material grappleMaterial;
+
 
     void Awake()
     {

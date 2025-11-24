@@ -5,11 +5,13 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour, IDataPersistence
 {
     [Header("Camera")]
+
     Vector2 camRotation;
     public float mouseSensitivity = 2.0f;
     public float camRotationLimit = 90f;
 
     [Header("Player")]
+
     public Rigidbody myRB;
     public Camera playerCamera;
     public Vector3 respawnPos;
@@ -28,26 +30,35 @@ public class playerMovement : MonoBehaviour, IDataPersistence
     public ManagerGen mangen;
     private bool grappleCheckRunning = false;
     public float grappleMinSpeed = 10f;
+
+    [Header("Speed Lines FX")]
+
     public ParticleSystem speedLines;
     public float speedLinesMin = 20f;
     public float speedLinesMax = 40f;
-
     ParticleSystem.EmissionModule slEmission;
     ParticleSystem.VelocityOverLifetimeModule slVel;
 
+    [Header("Camera Holder")]
+
     public Transform cameraHolder;
+
+    [Header("Speed Lines Positioning")]
 
     public Transform speedLinesTransform;
     public float minVelocityForRotation = 1f;
 
     [Header("Gun")]
+
     public LaserGun gun;
 
     [Header("Grapple Gun")]
+
     public GameObject Grapple;
     public GrapplingGun grap;
 
     private bool grounded;
+
 
     void Start()
     {
