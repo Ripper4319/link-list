@@ -54,12 +54,6 @@ public class DataPersistenceManager : MonoBehaviour
         NewGame();
     }
 
-    private void Start()
-    {
-        NewGame();
-        Debug.Log(gameData);
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -98,16 +92,16 @@ public class DataPersistenceManager : MonoBehaviour
     private void InitializeSelectedProfileId()
     {
         this.selectedProfileId = dataHandler.GetMostRecentlyUpdatedProfileId();
-        if (overrideSelectedProfileId)
+
+        if (string.IsNullOrEmpty(this.selectedProfileId))
         {
-            this.selectedProfileId = testSelectedProfileId;
-            Debug.LogWarning("Overrode selected profile id with test id: " + testSelectedProfileId);
+            this.selectedProfileId = "default";  
         }
+
     }
 
     public void NewGame()
     {
-        Debug.Log("New Game Created!");  
         this.gameData = new GameData();
 
         if (this.gameData == null)
@@ -185,8 +179,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true)
-            .OfType<IDataPersistence>();
+        var dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

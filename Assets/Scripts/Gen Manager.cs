@@ -73,4 +73,15 @@ public class ManagerGen : MonoBehaviour
         yield return new WaitForSeconds(1f);
         coroutinecockblocker = true;
     }
+
+    public void ApplyResolution(int width, int height, bool fullscreen)
+    {
+        Screen.SetResolution(width, height, fullscreen);
+    }
+
+    public void ApplyFullscreenMode(FullScreenMode mode)
+    {
+        Screen.fullScreenMode = mode;
+    }
+
 }
